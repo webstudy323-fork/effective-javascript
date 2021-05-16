@@ -1,3 +1,9 @@
+/*
+ * @Author: yuan.zhou
+ * @Date: 2021-05-15 12:33:55
+ * @Descripton: 
+ * @LastEditTime: 2021-05-15 23:40:05
+ */
 console.log(typeof 36); // number
 console.log(typeof 36.36); // number
 console.log(typeof -36.36); // number
