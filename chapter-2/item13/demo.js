@@ -1,3 +1,25 @@
+/*
+ * @Author: yuan.zhou
+ * @Date: 2021-05-15 12:33:55
+ * @Descripton: 立即执行函数
+ * 立即执行函数这里体现解决的问题是作用域变量的问题，而在es6中引入的let、const关键字，解决了js中没有块级作用域这个问题
+ * @LastEditTime: 2021-05-16 22:16:43
+ */
+/*  */
+const wrapElements = function(a) {
+  let res = [];
+  for( let i = 0, n = a.length; i < n; i++) {
+    res[i] = function() { return a[i] };
+  }
+  return res
+}
+
+/* let wrapEd = wrapElements([10,20,30]);
+console.log({wrapEd});
+let ff = wrapEd[0];
+console.log({ff}, ff()); */
+
+
 // 新的函数才会产生新的作用域,JavaScript的循环没有新的作用域产生。
 
 // 测试使用的数组

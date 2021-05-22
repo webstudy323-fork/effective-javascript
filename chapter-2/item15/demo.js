@@ -1,53 +1,41 @@
-function g() {
-    return 'outer';
+/*
+ * @Author: yuan.zhou
+ * @Date: 2021-05-15 12:33:56
+ * @Descripton: 函数提升
+ * @LastEditTime: 2021-05-22 23:22:46
+ */
+function getAttr() {
+    return 'outer'
 }
 
-function f(flag) {
-    var result = [];
-    function g() {
-        return 'inner';
-    }
-    if(flag) {
-        result.push(g());
-    }
-    result.push(g());
-    return result;
-}
-
-console.log(f(true)); // [ 'inner', 'inner' ]
-console.log(f(false)); // [ 'inner' ]
-
+/* 函数命名存在函数提升的问题 */
 function f1(flag) {
-    var result = [];
-    //function g() {
-    //    return 'inner';
-    //}
+  let res = [];
+  if(flag) {
+    function getAttr() {
+        return 'inner'
+    }
+    res.push(getAttr())
+  }
+  console.log({getAttr});
+  res.push(getAttr())
+  return res;
+}
+// console.log(f1(true));  // 
+// console.log(f1(false)); // getAttr is not defind
+
+/* 采用表达式命名的方式解决函数提升问题 */
+function f2(flag) {
+    let res = [];
+    let getAttr_copy = getAttr;
     if(flag) {
-        function g() {
+        getAttr_copy = function() {
             return 'inner';
         }
-        result.push(g());
+        res.push(getAttr_copy());
     }
-    result.push(g());
-    return result;
+    res.push(getAttr_copy());
+    return res;
 }
-
-console.log(f1(true)); // [ 'inner', 'inner' ]
-// console.log(f1(false)); // g is not a function 产生了局部快作用域
-
-// 下面是比较正确的做法
-function f2(flag) {
-    var result = [];
-    var g1 = g;
-    if(flag) {
-        g1 = function() {
-            return 'inner';
-        };
-        result.push(g1());
-    }
-    result.push(g1());
-    return result;
-}
-
-console.log(f2(true)); // [ 'inner', 'inner' ]
-console.log(f2(false)); // [ 'outer' ]
+// console.log(f2(true)); // ['inner', 'inner']
+// console.log(f2(false)); // ['outer']
